@@ -55,7 +55,7 @@
 </div>
 
 @code {
-    private string UserRole { get; set; }
+    private string UserRole { get; set; } = "UserRole";
     private bool IsManager => UserRole.Equals("Складской менеджер", StringComparison.OrdinalIgnoreCase);
     private bool IsLogistician => UserRole.Equals("Логист", StringComparison.OrdinalIgnoreCase);
     private bool IsAdmin => UserRole.Equals("Администратор", StringComparison.OrdinalIgnoreCase);
