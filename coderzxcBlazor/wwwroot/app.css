@@ -1,12 +1,12 @@
 ﻿/* Общие стили */
 :root {
-    --primary-color: #3a75c4;
-    --secondary-color: #2e5aac;
-    --background-gradient: linear-gradient(135deg, #89c2d9, #4682b4);
-    --card-background: linear-gradient(135deg, #1e3c72, #2a5298);
-    --text-color: #e0f0ff;
-    --accent-color: #84a9ff;
-    --error-color: #ff4d4d;
+    --primary-color: #333333;
+    --secondary-color: #1a1a1a;
+    --background-gradient: linear-gradient(135deg, #4d4d4d, #1f1f1f);
+    --card-background: linear-gradient(135deg, #262626, #404040);
+    --text-color: #ffffff;
+    --accent-color: #666666;
+    --error-color: #cc0000;
     --success-color: #28a745;
 }
 
@@ -271,4 +271,18 @@ button {
     .table-responsive {
         font-size: 0.9rem;
     }
+}
+
+.top-row-ml {
+    min-height: 4rem;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    margin: 0.7rem 0;
+    border-top-left-radius: 12px; /* Rounded top corners */
+    border-top-right-radius: 12px;
+    border-bottom-left-radius: 12px; /* Rounded bottom corners */
+    border-bottom-right-radius: 12px;
+    border-bottom: 1px solid var(--border-color); /* Subtle border to separate from nav */
 }
