@@ -1,0 +1,274 @@
+﻿/* Общие стили */
+:root {
+    --primary-color: #3a75c4;
+    --secondary-color: #2e5aac;
+    --background-gradient: linear-gradient(135deg, #89c2d9, #4682b4);
+    --card-background: linear-gradient(135deg, #1e3c72, #2a5298);
+    --text-color: #e0f0ff;
+    --accent-color: #84a9ff;
+    --error-color: #ff4d4d;
+    --success-color: #28a745;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    background: var(--background-gradient);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+/* Контейнер страницы */
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Контейнер для форм (вход, регистрация, чат и т.д.) */
+.login-container, .chat-container, .form-container, .report-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 30px;
+    background: var(--card-background);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+    .login-container h2, .chat-container h2, .form-container h2, .report-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: var(--text-color);
+        font-weight: 600;
+        font-size: 1.8rem;
+    }
+
+/* Формы */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+input[type="text"], input[type="password"], input[type="date"], select {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+    input[type="text"]:focus, input[type="password"]:focus, input[type="date"]:focus, select:focus {
+        outline: none;
+        box-shadow: 0 0 8px var(--accent-color);
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+select {
+    appearance: none;
+    background: rgba(255, 255, 255, 0.1) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E") no-repeat right 12px center;
+}
+
+/* Кнопки */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    button:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-2px);
+    }
+
+    button:active {
+        transform: translateY(0);
+    }
+
+/* Ссылки */
+.register-link {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+    .register-link a {
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+/* Сообщения об ошибках */
+.error-message {
+    background-color: var(--error-color);
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    animation: shake 0.3s ease-in-out;
+}
+
+/* Стили для чата */
+.chat-container .messages {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.message {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 6px;
+    position: relative;
+}
+
+.user-message {
+    background: var(--primary-color);
+    margin-left: 20%;
+    color: white;
+}
+
+.sender-message {
+    background: rgba(255, 255, 255, 0.1);
+    margin-right: 20%;
+    color: var(--text-color);
+}
+
+.message .sender-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.message .timestamp {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+}
+
+.input-container {
+    display: flex;
+    gap: 10px;
+}
+
+    .input-container input {
+        flex: 1;
+    }
+
+    .input-container button {
+        width: auto;
+        padding: 12px 20px;
+    }
+
+/* Таблицы */
+.table {
+    background: var(--card-background);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+    .table th {
+        background: var(--primary-color);
+        color: white;
+        padding: 12px;
+        font-weight: 600;
+    }
+
+    .table td {
+        color: var(--text-color);
+        padding: 12px;
+        vertical-align: middle;
+    }
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.table-hover tbody tr:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 576px) {
+    .login-container, .chat-container, .form-container, .report-container {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .input-container {
+        flex-direction: column;
+    }
+
+    .message {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .table-responsive {
+        font-size: 0.9rem;
+    }
+}

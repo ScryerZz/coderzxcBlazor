@@ -1,0 +1,81 @@
+﻿@page "/dashboard"
+@using Fluxor
+@using coderzxcBlazor.FluxState
+@using coderzxcBlazor.Utils
+@inject NavigationManager Navigation
+@inject HttpClient Http
+@inject IState<AuthState> _authState
+@rendermode InteractiveServer
+
+<div class="page-wrapper">
+    <div class="form-container">
+        <h2>Вы вошли как: <strong>@UserRole</strong></h2>
+        <div class="form-group">
+            @if (IsManager)
+            {
+                <button class="btn btn-primary mb-2" @onclick="GoToInventory">
+                    <span class="bi bi-box-fill me-2"></span> Управление товарами
+                </button>
+                <button class="btn btn-primary mb-2" @onclick="GoToChat">
+                    <span class="bi bi-chat-fill me-2"></span> Чат с отделами
+                </button>
+            }
+            else if (IsLogistician)
+            {
+                <button class="btn btn-primary mb-2" @onclick="GoToShipments">
+                    <span class="bi bi-truck me-2"></span> Планирование отгрузок
+                </button>
+                <button class="btn btn-primary mb-2" @onclick="GoToVehicles">
+                    <span class="bi bi-truck-front me-2"></span> Транспорт и техобслуживание
+                </button>
+                <button class="btn btn-primary mb-2" @onclick="GoToChat">
+                    <span class="bi bi-chat-fill me-2"></span> Чат с отделами
+                </button>
+            }
+            else
+            {
+                <button class="btn btn-primary mb-2" @onclick="GoToInventory">
+                    <span class="bi bi-box-fill me-2"></span> Управление товарами
+                </button>
+                <button class="btn btn-primary mb-2" @onclick="GoToShipments">
+                    <span class="bi bi-truck me-2"></span> Планирование отгрузок
+                </button>
+                <button class="btn btn-primary mb-2" @onclick="GoToVehicles">
+                    <span class="bi bi-truck-front me-2"></span> Транспорт и техобслуживание
+                </button>
+                <button class="btn btn-primary mb-2" @onclick="GoToChat">
+                    <span class="bi bi-chat-fill me-2"></span> Чат с отделами
+                </button>
+                <button class="btn btn-primary mb-2" @onclick="GoToReports">
+                    <span class="bi bi-bar-chart-fill me-2"></span> Отчёты
+                </button>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private string UserRole { get; set; } = "Загрузка...";
+    private bool IsManager => UserRole.Equals("Складской менеджер", StringComparison.OrdinalIgnoreCase);
+    private bool IsLogistician => UserRole.Equals("Логист", StringComparison.OrdinalIgnoreCase);
+    private bool IsAdmin => UserRole.Equals("Администратор", StringComparison.OrdinalIgnoreCase);
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var token = _authState.Value.JwtToken;
+            if (!string.IsNullOrEmpty(token))
+            {
+                UserRole = JwtHelper.GetUserRoleFromToken(token);
+                StateHasChanged();
+            }
+        }
+    }
+
+    private void GoToInventory() => Navigation.NavigateTo("/products");
+    private void GoToShipments() => Navigation.NavigateTo("/shipments");
+    private void GoToVehicles() => Navigation.NavigateTo("/vehicles");
+    private void GoToChat() => Navigation.NavigateTo("/chat");
+    private void GoToReports() => Navigation.NavigateTo("/reports");
+}

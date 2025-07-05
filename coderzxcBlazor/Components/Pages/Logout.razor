@@ -1,0 +1,14 @@
+﻿@page "/logout"
+@using Fluxor
+@inject IState<AuthState> _authState
+@inject NavigationManager Navigation
+@inject IDispatcher Dispatcher
+@rendermode InteractiveServer
+
+@code {
+    protected override void OnInitialized()
+    {
+        Dispatcher.Dispatch(new SetJwtTokenAction(null));
+        Navigation.NavigateTo("/");
+    }
+}

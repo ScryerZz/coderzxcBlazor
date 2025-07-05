@@ -1,0 +1,114 @@
+﻿@using coderzxcBlazor.FluxState
+@using coderzxcBlazor.Utils
+@inject IState<AuthState> _authState
+@inject NavigationManager Navigation
+
+<div class="sidebar">
+    <div class="top-row ps-3 navbar navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">coderzxcBlazor</a>
+            <input type="checkbox" title="Navigation menu" class="navbar-toggler" @bind="collapseNavMenu" />
+        </div>
+    </div>
+    <div class="nav-scrollable">
+        <nav class="nav flex-column">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
+                    <span class="bi bi-house-up-fill" aria-hidden="true"></span> Вход
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="/register" Match="NavLinkMatch.All">
+                    <span class="bi bi-house-add-fill" aria-hidden="true"></span> Регистрация
+                </NavLink>
+            </div>
+            @if (IsAuthenticated)
+            {
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="/dashboard" Match="NavLinkMatch.All">
+                        <span class="bi bi-kanban-fill" aria-hidden="true"></span> Панель управления
+                    </NavLink>
+                </div>
+                @if (IsManager)
+                {
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="/products">
+                            <span class="bi bi-inboxes-fill" aria-hidden="true"></span> Управление товарами
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="/chat">
+                            <span class="bi bi-telegram" aria-hidden="true"></span> Чат
+                        </NavLink>
+                    </div>
+                }
+                @if (IsLogistician)
+                {
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="/shipments">
+                            <span class="bi bi-basket2-fill" aria-hidden="true"></span> Планирование отгрузок
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="/vehicles">
+                            <span class="bi bi-truck-front-fill" aria-hidden="true"></span> Транспорт
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="/chat">
+                            <span class="bi bi-telegram" aria-hidden="true"></span> Чат
+                        </NavLink>
+                    </div>
+                }
+                @if (IsAdmin)
+                {
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="/products">
+                            <span class="bi bi-inboxes-fill" aria-hidden="true"></span> Управление товарами
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="/shipments">
+                            <span class="bi bi-basket2-fill" aria-hidden="true"></span> Планирование отгрузок
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="/vehicles">
+                            <span class="bi bi-truck-front-fill" aria-hidden="true"></span> Транспорт
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="/chat">
+                            <span class="bi bi-telegram" aria-hidden="true"></span> Чат
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="/reports">
+                            <span class="bi bi-card-heading" aria-hidden="true"></span> Отчёты
+                        </NavLink>
+                    </div>
+                }
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="/logout">
+                        <span class="bi bi-door-open-fill" aria-hidden="true"></span> Выход
+                    </NavLink>
+                </div>
+            }
+        </nav>
+    </div>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+    private string UserRole => _authState.Value.JwtToken != null ? JwtHelper.GetUserRoleFromToken(_authState.Value.JwtToken) : "";
+    private bool IsAuthenticated => !string.IsNullOrEmpty(_authState.Value.JwtToken);
+    private bool IsManager => UserRole.Equals("Складской менеджер", StringComparison.OrdinalIgnoreCase);
+    private bool IsLogistician => UserRole.Equals("Логист", StringComparison.OrdinalIgnoreCase);
+    private bool IsDriver => UserRole.Equals("Водитель", StringComparison.OrdinalIgnoreCase);
+    private bool IsAdmin => UserRole.Equals("Администратор", StringComparison.OrdinalIgnoreCase);
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
